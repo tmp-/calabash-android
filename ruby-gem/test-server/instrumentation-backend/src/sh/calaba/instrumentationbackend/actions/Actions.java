@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import sh.calaba.instrumentationbackend.InstrumentationBackend;
+import sh.calaba.instrumentationbackend.actions.delete.ClearAppData;
 import android.app.Instrumentation;
 import android.content.ComponentName;
 import android.content.Context;
@@ -41,6 +42,8 @@ public class Actions {
                 if (element.startsWith("sh.calaba.instrumentationbackend.actions.")) {
                     addAction(element);
                 }
+                // Inject targetContext
+                ((ClearAppData)getActions().get("sh.calaba.instrumentationbackend.actions.ClearAppData")).targetContext = targetContext;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

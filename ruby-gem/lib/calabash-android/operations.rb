@@ -358,7 +358,9 @@ module Operations
     end
   end
 
-
+  def clear_app_data
+    performAction("clear_app_data")
+  end
 
   def label(uiquery)
     ni
