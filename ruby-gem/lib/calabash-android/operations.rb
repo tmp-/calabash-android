@@ -13,13 +13,16 @@ module Calabash module Android
 
 module Operations
 
-
   def log(message)
     $stdout.puts "#{Time.now.strftime("%Y-%m-%d %H:%M:%S")} - #{message}" if (ARGV.include? "-v" or ARGV.include? "--verbose")
   end
 
   def take_screenshot
     default_device.take_screenshot
+  end
+
+  def clear_app_data
+    default_device.clear_app_data
   end
 
   def macro(txt)
@@ -167,7 +170,7 @@ module Operations
     end
 
     def app_running?
-      `#{adb_command} shell ps`.include?(package_name(@app_path))
+      `#{adb_command} shell ps`.include?(ENV["PACKAGE_NAME"])
     end
 
     def keyguard_enabled?
@@ -356,10 +359,10 @@ module Operations
     def set_gps_coordinates(latitude, longitude)
       perform_action('set_gps_coordinates', latitude, longitude)
     end
-  end
 
-  def clear_app_data
-    performAction("clear_app_data")
+    def clear_app_data
+      perform_action 'clear_app_data'
+    end
   end
 
   def label(uiquery)
